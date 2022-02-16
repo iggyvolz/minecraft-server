@@ -2,18 +2,24 @@
 
 namespace iggyvolz\minecraft;
 
+use Amp\ByteStream\ReadableBuffer;
 use Amp\ByteStream\ReadableStream;
 
-abstract class Packet
+abstract class Packet implements \Stringable
 {
-    public final function __construct(
+    public function __construct(
         public readonly int $length,
         public readonly int $packetId,
         ReadableStream $data,
     )
     {
-        $this->read($data);
     }
 
-    protected abstract function read(ReadableStream $data);
+    public static function read(ClientState $state, ReadableStream $input): self
+    {
+        $length = StreamReaderWriter::readVarint($input);
+        $packet = new ReadableBuffer(StreamReaderWriter::read($input, $length));
+        $packetId = StreamReaderWriter::readVarint($packet);
+
+    }
 }

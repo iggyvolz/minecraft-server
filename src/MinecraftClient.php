@@ -2,6 +2,8 @@
 
 namespace iggyvolz\minecraft;
 
+use Amp\ByteStream\ReadableStream;
+use Amp\ByteStream\WritableStream;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Ramsey\Uuid\Uuid;
@@ -11,9 +13,9 @@ use RuntimeException;
 // https://wiki.vg/Protocol
 class MinecraftClient
 {
-    public const IS_BIG_ENDIAN = true;
+    private ClientState $clientState = ClientState::Handshaking;
     public function __construct(
-        private readonly FixedSizeStream $socket,
+        private readonly ReadableStream&WritableStream $socket,
         private readonly LoggerInterface $logger = new NullLogger(),
     )
     {
@@ -21,18 +23,8 @@ class MinecraftClient
 
     public function run()
     {
-        while($packet = $this->readPacket()) {
+        while($packet = Packet::read($this->clientState, $this->socket)) {
             $this->logger->debug("Packet $packet->packetId: " . bin2hex($packet->data));
         }
-    }
-
-    private function readPacket(): Packet
-    {
-        $length = $this->readVarint();
-        $packetIdAndData = $this->socket->read($length);
-        $packetIdLength = 0;
-        $packetId = $this->readVarint();
-        $data = $this->socket->read($length - $packetIdLength);
-        return new Packet($length, $packetId, $data);
     }
 }
