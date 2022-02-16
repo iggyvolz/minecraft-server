@@ -1,0 +1,35 @@
+{
+  "name": "iggyvolz/minecraft-server",
+  "description": "A minecraft server in PHP",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "license": "0BSD",
+  "authors": [
+    {
+      "name": "Katie Volz",
+      "email": "iggyvolz@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "~8.1",
+    "php-64bit": "*",
+    "amphp/socket": "^v2.x-dev",
+    "psr/log": "^3.0",
+    "ramsey/uuid": "^4.2",
+    "roave/dont": "~1.5",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "iggyvolz\\minecraft\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "iggyvolz\\minecraft\\test\\" : "test/"
+    }
+  },
+  "require-dev": {
+    "nette/tester": "^2.4"
+  }
+}
