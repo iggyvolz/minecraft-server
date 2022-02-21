@@ -6,6 +6,7 @@ use Amp\ByteStream\ReadableStream;
 use Amp\ByteStream\WritableStream;
 use RuntimeException;
 
+#[\Attribute(\Attribute::TARGET_PARAMETER)]
 // https://wiki.vg/Protocol#VarInt_and_VarLong
 /** @template-extends Definition<int> */
 class VarintDef extends Definition

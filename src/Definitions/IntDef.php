@@ -5,6 +5,7 @@ namespace iggyvolz\minecraft\Definitions;
 use Amp\ByteStream\ReadableStream;
 use Amp\ByteStream\WritableStream;
 
+#[\Attribute(\Attribute::TARGET_PARAMETER)]
 /** @template-extends Definition<int> */
 class IntDef extends Definition
 {

@@ -21,7 +21,10 @@ class MinecraftServer
         while ($socket = $this->server->accept()) {
             async((function() use($socket){
                 try {
-                    (new MinecraftClient(new FixedSizeStreamWrapper($socket), $this->logger))->run();
+                    (new MinecraftClient($socket, $this->logger))->run();
+                } catch(\Throwable $t) {
+                    $this->logger->error($t);
+                    throw $t;
                 } finally {
                     $socket->close();
                 }

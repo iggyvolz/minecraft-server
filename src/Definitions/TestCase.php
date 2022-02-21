@@ -6,7 +6,7 @@ use Amp\ByteStream\ReadableBuffer;
 use Amp\ByteStream\WritableBuffer;
 use Tester\Assert;
 
-#[\Attribute(\Attribute::TARGET_CLASS)]
+#[\Attribute(\Attribute::TARGET_PARAMETER)]
 final class TestCase
 {
     public function __construct(

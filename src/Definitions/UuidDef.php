@@ -7,6 +7,7 @@ use Amp\ByteStream\WritableStream;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+#[\Attribute(\Attribute::TARGET_PARAMETER)]
 /** @template-extends Definition<UuidInterface> */
 class UuidDef extends Definition
 {

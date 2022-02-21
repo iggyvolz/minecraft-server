@@ -6,6 +6,7 @@ use Amp\ByteStream\ReadableStream;
 use Amp\ByteStream\WritableStream;
 use iggyvolz\minecraft\Position;
 
+#[\Attribute(\Attribute::TARGET_PARAMETER)]
 /** @template-extends Definition<Position> */
 class PositionDef extends Definition
 {

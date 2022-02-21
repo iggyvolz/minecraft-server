@@ -4,11 +4,10 @@ namespace iggyvolz\minecraft;
 
 use Amp\ByteStream\ReadableStream;
 use Amp\ByteStream\WritableStream;
+use iggyvolz\minecraft\Packet\ClientState;
+use iggyvolz\minecraft\Packet\Packet;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
-use RuntimeException;
 
 // https://wiki.vg/Protocol
 class MinecraftClient
@@ -23,8 +22,8 @@ class MinecraftClient
 
     public function run()
     {
-        while($packet = Packet::read($this->clientState, $this->socket)) {
-            $this->logger->debug("Packet $packet->packetId: " . bin2hex($packet->data));
+        while($packet = Packet::read($this->socket, $this->clientState)) {
+            $this->logger->debug("Packet $packet");
         }
     }
 }
