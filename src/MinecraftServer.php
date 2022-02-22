@@ -18,8 +18,11 @@ class MinecraftServer
     }
     public function run(): void
     {
+        $this->logger->info("Starting minecraft server on " . $this->server->getAddress()->toString());
+
         while ($socket = $this->server->accept()) {
             async((function() use($socket){
+                $this->logger->info("Got connection from " . $socket->getRemoteAddress()->toString());
                 try {
                     (new MinecraftClient($socket, $this->logger))->run();
                 } catch(\Throwable $t) {

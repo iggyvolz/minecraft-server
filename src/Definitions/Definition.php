@@ -25,7 +25,7 @@ abstract class Definition
         self::$buffers ??= new WeakMap();
         self::$buffers[$input] ??= "";
         while(strlen(self::$buffers[$input]) < $length) {
-            self::$buffers[$input] .= $input->read() ?? throw new \RuntimeException("FixedSizeStream closed");
+            self::$buffers[$input] .= $input->read() ?? "";
         }
         $data = substr(self::$buffers[$input], 0, $length);
         self::$buffers[$input] = substr(self::$buffers[$input], $length);

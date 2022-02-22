@@ -7,7 +7,7 @@ use iggyvolz\minecraft\Definitions\StringDef;
 use iggyvolz\minecraft\Definitions\UShortDef;
 use iggyvolz\minecraft\Definitions\VarintDef;
 
-class HandshakePacket extends Packet implements ChangesClientState
+class HandshakePacket extends Packet
 {
     public function __construct(
         #[VarintDef]
@@ -25,11 +25,6 @@ class HandshakePacket extends Packet implements ChangesClientState
 
     public function __toString()
     {
-        return "Handshake: protocol version $this->protocolVersion, server address: $this->serverAddress, server port: $this->serverPort";
-    }
-
-    public function newClientState(): ClientState
-    {
-        return $this->nextState;
+        return "Handshake: protocol version $this->protocolVersion, server address: $this->serverAddress, server port: $this->serverPort, next state: " . $this->nextState->name;
     }
 }

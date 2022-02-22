@@ -13,7 +13,9 @@ class StringDef extends Definition
 {
     public static function read(ReadableStream $input): string
     {
-        return self::readData($input, VarintDef::read($input));
+        echo "StringDef::read\n";
+        echo "Length: " . ($length = VarintDef::read($input)) . PHP_EOL;
+        return self::readData($input, $length);
     }
 
     public static function write(WritableStream $output, mixed $data): void
